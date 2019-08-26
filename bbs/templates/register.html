@@ -5,8 +5,9 @@
 	<title>垃圾分类论坛_注册页</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="../static/css/public.css" />
-	<link rel="stylesheet" type="text/css" href="../static/css/register.css" />
+    {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}" />
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -37,7 +38,7 @@
 			<label>密码：<input type="password"  name="password1"/><span>*6-10位，请使用英文字母、数字，注意区分大小写</span></label>
 			<label>确认密码：<input type="password" name="password2" /><span>*两次输入的密码必须一致</span></label>
 			<label>验证码：<input name="vcode" type="text"  /><span>*请输入下方验证码</span></label>
-			<img class="vcode" src="../static/image/show_code.jpg" />
+			<img class="vcode" src="{% static 'image/show_code.jpg' %}" />
 			<div style="clear:both;"></div>
 			<input class="btn" type="submit" value="确定注册" />
 		</form>
