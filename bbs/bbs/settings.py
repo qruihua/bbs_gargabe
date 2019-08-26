@@ -24,8 +24,8 @@ SECRET_KEY = 'j0982tsbd4f*ac__x2#va5(5u@er7f@wsch@lr50&9czu74kc4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+#添加允许访问的域名/IP
+ALLOWED_HOSTS = ['www.bbsgarbage.com','127.0.0.1']
 
 
 # Application definition
