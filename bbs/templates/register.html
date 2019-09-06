@@ -34,6 +34,7 @@
 	<div id="register" class="auto">
 		<h2>欢迎注册成为论坛会员</h2>
 		<form action="" method="POST">
+            {% csrf_token %}
 			<label>用户名：<input type="text" name="username"/><span>*6-10位，请使用英文字母、数字</span></label>
 			<label>密码：<input type="password"  name="password1"/><span>*6-10位，请使用英文字母、数字，注意区分大小写</span></label>
 			<label>确认密码：<input type="password" name="password2" /><span>*两次输入的密码必须一致</span></label>
