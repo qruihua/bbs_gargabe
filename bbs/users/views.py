@@ -97,3 +97,11 @@ class LoginView(View):
             request.session['name']=user.username
             # 5.返回相应
             return redirect(reverse('home:index'))
+
+class LogoutView(View):
+
+    def get(self,request):
+        #删除session信息
+        del request.session['id']
+        #跳转到首页
+        return redirect(reverse('home:index'))
