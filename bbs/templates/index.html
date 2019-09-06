@@ -5,8 +5,9 @@
 	<title>垃圾分类论坛_首页</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="../static/css/public.css" />
-	<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+    {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -23,10 +24,17 @@
 					<input class="submit" type="submit" name="submit" value="" />
 				</form>
 			</div>
-			<div class="login">
-				<a href='login.html'>登录</a>&nbsp;
-				<a href='register.html'>注册</a>
+			{% if id %}
+                <div class="login">
+				<a href='#'>{{ username }}</a>&nbsp;
+				<a href='#'>退出</a>
 			</div>
+            {% else %}
+                <div class="login">
+				<a href='{% url 'users:login' %}'>登录</a>&nbsp;
+				<a href='{% url 'users:register' %}'>注册</a>
+			</div>
+            {% endif %}
 		</div>
 	</div>
 	<div style="margin-top:55px;"></div>
