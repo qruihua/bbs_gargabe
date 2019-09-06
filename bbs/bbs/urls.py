@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #添加users的路由
     url(r'^', include(('users.urls','users'), namespace='users')),
+    url(r'^', include(('home.urls','home'), namespace='home')),
 ]

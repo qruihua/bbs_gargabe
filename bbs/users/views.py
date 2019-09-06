@@ -3,6 +3,7 @@ import hashlib
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
 from django.views import View
 
 from users.models import User
@@ -58,4 +59,4 @@ class RegisterView(View):
         request.session['id'] = user.id
         request.session['name'] = user.username
         # 5.返回相应
-        return redirect('/')
+        return redirect(reverse('home:index'))
