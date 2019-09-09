@@ -56,8 +56,8 @@
 		<div class="classList">
             {% for category in categories %}
             <div class="childBox new">
-				<h2><a href="../static/list.html">{{ category.name }}</a> <span>(今日38)</span></h2>
-				帖子：1939539<br />
+				<h2><a href="#">{{ category.name }}</a> <span>(今日 {{ category.today_count }} )</span></h2>
+				帖子：{{ category.total_count }}<br />
 			</div>
             {% endfor %}
 			<div style="clear:both;"></div>
