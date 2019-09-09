@@ -38,3 +38,4 @@ class ArticleModel(models.Model):
     class Meta:
         db_table='tb_article'
         verbose_name = '文章管理'
+        verbose_name_plural = verbose_name
