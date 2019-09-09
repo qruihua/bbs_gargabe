@@ -54,22 +54,12 @@
 			跟帖
 		</div>
 		<div class="classList">
-			<div class="childBox new">
-				<h2><a href="../static/list.html">可回收物</a> <span>(今日38)</span></h2>
+            {% for category in categories %}
+            <div class="childBox new">
+				<h2><a href="../static/list.html">{{ category.name }}</a> <span>(今日38)</span></h2>
 				帖子：1939539<br />
 			</div>
-			<div class="childBox new">
-				<h2><a href="../static/list.html">有害垃圾</a> <span>(今日38)</span></h2>
-				帖子：1939539<br />
-			</div>
-			<div class="childBox new">
-				<h2><a href="../static/list.html">湿垃圾</a> <span>(今日38)</span></h2>
-				帖子：1939539<br />
-			</div>
-			<div class="childBox new">
-				<h2><a href="../static/list.html">干垃圾</a> <span>(今日38)</span></h2>
-				帖子：1939539<br />
-			</div>
+            {% endfor %}
 			<div style="clear:both;"></div>
 		</div>
 	</div>
