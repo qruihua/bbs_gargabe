@@ -14,3 +14,27 @@ class CategoryModel(models.Model):
         db_table='tb_category'
         verbose_name='分类管理'
         verbose_name_plural=verbose_name
+
+class ArticleModel(models.Model):
+
+    StatusEnum = (
+        (0,'未审核'),
+        (1,'已审核'),
+        (2,'已下架'),
+    )
+
+    title=models.CharField(max_length=50)
+    content=models.TextField()
+    category=models.ForeignKey(CategoryModel,on_delete=models.SET_NULL,null=True)
+    user=models.ForeignKey('users.User',on_delete=models.SET_NULL,null=True)
+    publish_time=models.DateTimeField(auto_now_add=True)
+    status=models.SmallIntegerField(choices=StatusEnum,default=0)
+    read_count=models.IntegerField(default=0)
+    comments = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table='tb_article'
+        verbose_name = '文章管理'
