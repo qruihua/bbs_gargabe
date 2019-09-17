@@ -31,3 +31,10 @@ class IndexView(View):
         }
 
         return render(request,'index.html',context=context)
+
+
+class ListView(View):
+
+    def get(self,request,category_id):
+
+        return render(request,'list.html')
