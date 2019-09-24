@@ -12,8 +12,8 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/show.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.pagination.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-1.12.4.min.js' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'js/jquery.pagination.min.js' %}" />
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.pagination.min.js' %}"></script>
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -73,30 +73,8 @@
 			</div>
 			<div style="clear:both;"></div>
 		</div>
-		<div class="wrapContent">
-			<div class="left">
-				<div class="face">
-					<a target="_blank" href="">
-						<img src="{% static 'image/2374102_middle.jpg' %}" />
-					</a>
-				</div>
-				<div class="name">
-					<a href="">rose</a>
-				</div>
-			</div>
-			<div class="right">
-
-				<div class="pubdate">
-					<span class="date">回复时间：2019-06-09 14:24:26</span>
-					<span class="floor">1楼&nbsp;|&nbsp;<a href="../static/quote.html">引用</a></span>
-				</div>
-				<div class="content">
-					抢到沙发了！！！
-				</div>
-			</div>
-			<div style="clear:both;"></div>
-		</div>
-		<div class="wrapContent">
+        {% for comment in comments %}
+            <div class="wrapContent">
 			<div class="left">
 				<div class="face">
 					<a target="_blank" data-uid="2374101" href="">
@@ -104,25 +82,28 @@
 					</a>
 				</div>
 				<div class="name">
-					<a class="J_user_card_show mr5" data-uid="2374101" href="">Lily</a>
+					<a class="J_user_card_show mr5" data-uid="2374101" href="">{{ comment.user.name }}</a>
 				</div>
 			</div>
 			<div class="right">
 
 				<div class="pubdate">
-					<span class="date">回复时间：2019-06-10 14:24:26</span>
-					<span class="floor">1楼&nbsp;|&nbsp;<a href="#">引用</a></span>
+					<span class="date">回复时间：{{ comment.create_time }}</span>
+					<span class="floor">{{ comment.floor }}楼&nbsp;|&nbsp;<a href="#">引用</a></span>
 				</div>
 				<div class="content">
-					<div class="quote">
-					<h2>引用 ricky 发表的: </h2>
-					如何有效进行垃圾分类呢?
-					</div>
-					板凳是我的！！
+                    {% if comment.parent_id %}
+                        <div class="quote">
+                        <h2>引用 1楼 {{ comment.parent.user.username }} 发表的: </h2>
+                        {{ comment.parent.content }}
+                        </div>
+                    {% endif %}
+					{{ comment.content }}
 				</div>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
+        {% endfor %}
 		<div class="wrap1">
 				<div class="pages">
 					<div id="pagination" class="page"></div>
@@ -142,8 +123,8 @@
 <script type="text/javascript">
     $(function () {
         $('#pagination').pagination({
-            currentPage:5,
-            totalPage: 10,
+            currentPage: {{ page_num }},
+            totalPage: {{ total_page }},
             callback:function (current) {
                 location.href = '?page=' + current;
             }

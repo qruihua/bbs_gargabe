@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -101,6 +102,10 @@ class DetailView(View):
 
     def get(self,request,id):
 
+        current_page = request.GET.get('page')
+        if current_page is None:
+            current_page = 1
+
         try:
             article=ArticleModel.objects.get(pk=id)
         except ArticleModel.DoesNotExist:
@@ -109,8 +114,22 @@ class DetailView(View):
             article.read_count+=1
             article.save()
 
+        comments=CommentModel.objects.filter(article=article).order_by('create_time')
+        i=0
+        for comment in comments:
+            i+=1
+            comment.floor=i
+
+        pagination = Paginator(comments, per_page=1)
+        current_comments = pagination.get_page(current_page)
+        page_num = current_page
+        total_page = pagination.num_pages
+
         context = {
             'article':article,
+            'comments':current_comments,
+            'page_num':page_num,
+            'total_page':total_page
         }
 
         return render(request,'show.html',context=context)
