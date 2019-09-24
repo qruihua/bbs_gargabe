@@ -96,12 +96,12 @@
 
 				<div class="pubdate">
 					<span class="date">回复时间：{{ comment.create_time }}</span>
-					<span class="floor">{{ comment.floor }}楼&nbsp;|&nbsp;<a href="#">引用</a></span>
+					<span class="floor">{{ comment.floor }}楼&nbsp;|&nbsp;<a href="{% url 'home:quote'  %}?comment_id={{ comment.id }}">引用</a></span>
 				</div>
 				<div class="content">
                     {% if comment.parent_id %}
                         <div class="quote">
-                        <h2>引用 1楼 {{ comment.parent.user.username }} 发表的: </h2>
+                        <h2>引用 {{ comment.parent.user.username }} 发表的: </h2>
                         {{ comment.parent.content }}
                         </div>
                     {% endif %}

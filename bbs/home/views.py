@@ -208,3 +208,44 @@ class ReplyView(View):
         )
 
         return redirect(reverse('home:detail', kwargs={'id': article_id}))
+
+class QuoteView(View):
+
+    def get(self,request):
+
+        comment_id=request.GET.get('comment_id')
+
+        try:
+            comment=CommentModel.objects.get(pk=comment_id)
+        except CommentModel.DoesNotExist:
+            return render(request,'404.html')
+
+        context = {
+            'comment':comment,
+            'id': request.session.get('id'),
+            'username': request.session.get('name')
+        }
+
+        return render(request,'quote.html',context)
+
+    def post(self,request):
+
+        user_id = request.session.get('id')
+        if user_id is None:
+            return redirect(reverse('users:login'))
+
+        comment_id=request.GET.get('comment_id')
+        content=request.POST.get('content')
+        try:
+            comment = CommentModel.objects.get(pk=comment_id)
+        except CommentModel.DoesNotExist:
+            return render(request, '404.html')
+
+        CommentModel.objects.create(
+            content=content,
+            article=comment.article,
+            user_id=user_id,
+            parent=comment
+        )
+
+        return redirect(reverse('home:detail',args=str(comment.article.id)))

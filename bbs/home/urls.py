@@ -12,4 +12,6 @@ urlpatterns = [
     path('detail/<int:id>/',views.DetailView.as_view(),name='detail'),
     #评论
     path('reply/',views.ReplyView.as_view(),name='reply'),
+    #回复功能
+    path('quote/',views.QuoteView.as_view(),name='quote'),
 ]
