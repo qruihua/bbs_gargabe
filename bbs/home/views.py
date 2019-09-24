@@ -80,6 +80,8 @@ class ListView(View):
             'hot_articles': hot_articles,
             'page_num': page_num,
             'total_page': total_page,
+            'id':request.session.get('id'),
+            'username':request.session.get('name')
         }
 
         return render(request,'list.html',context=context)
@@ -98,7 +100,9 @@ class PublishView(View):
         #组织上下文
         context={
             'category':category,
-            'categories':categories
+            'categories':categories,
+            'id':request.session.get('id'),
+            'username':request.session.get('name')
         }
         #模板数据渲染
         return render(request,'publish.html',context=context)
@@ -128,7 +132,6 @@ class PublishView(View):
             user_id=user_id
         )
         return redirect(reverse('home:list',kwargs={'category_id':category_id}))
-
 
 class DetailView(View):
 
@@ -161,7 +164,9 @@ class DetailView(View):
             'article':article,
             'comments':current_comments,
             'page_num':page_num,
-            'total_page':total_page
+            'total_page':total_page,
+            'id':request.session.get('id'),
+            'username':request.session.get('name')
         }
 
         return render(request,'show.html',context=context)
@@ -175,7 +180,9 @@ class ReplyView(View):
         article=ArticleModel.objects.get(pk=article_id)
 
         context = {
-            'article':article
+            'article':article,
+            'id':request.session.get('id'),
+            'username':request.session.get('name')
         }
 
         return render(request,'reply.html',context=context)

@@ -52,10 +52,10 @@
 					<input class="submit" type="submit" name="submit" value="" />
 				</form>
 			</div>
-              
+
                 <div class="login">
-                    <a href='login.html'>登录</a>&nbsp;
-                    <a href='register.html'>注册</a>
+                   <a href='{% url 'users:login' %}'>登录</a>&nbsp;
+				<a href='{% url 'users:register' %}'>注册</a>
                 </div>
 		</div>
 	</div>
