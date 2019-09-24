@@ -10,4 +10,6 @@ urlpatterns = [
     path('publish/', views.PublishView.as_view(), name='publish'),
     #详情页面
     path('detail/<int:id>/',views.DetailView.as_view(),name='detail'),
+    #评论
+    path('reply/',views.ReplyView.as_view(),name='reply'),
 ]

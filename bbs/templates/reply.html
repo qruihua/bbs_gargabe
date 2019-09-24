@@ -5,8 +5,8 @@
 	<title>垃圾分类论坛_回复页面</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="css/public.css" />
-	<link rel="stylesheet" type="text/css" href="css/publish.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/publish.css" />
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -15,7 +15,7 @@
 		<div id="header" class="auto">
 			<div class="logo">垃圾分类</div>
 			<div class="nav">
-				<a class="hover" href="../templates/index.html">首页</a>
+				<a class="hover" href="index.html">首页</a>
 			</div>
 			<div class="serarch">
 				<form>
@@ -24,19 +24,20 @@
 				</form>
 			</div>
 			<div class="login">
-				<a href='../templates/login.html'>登录</a>&nbsp;
-				<a href='../templates/register.html'>注册</a>
+				<a href='login.html'>登录</a>&nbsp;
+				<a href='register.html'>注册</a>
 			</div>
 		</div>
 	</div>
 	<div style="margin-top:55px;"></div>
 	<div id="position" class="auto">
-		 <a href='../templates/index.html'>首页</a> &gt; <a href='../templates/list.html'>干垃圾</a> &gt;如何有效进行垃圾分类
+		 <a href='{% url 'home:index' %}'>首页</a> &gt; <a href='"{% url 'home:reply' %}?article_id={{ article.id }}">'>{{ article.category.name }}</a> &gt;{{ article.title }}
 	</div>
 	<div id="publish">
-		<div>回复：由 ricky 发布的  如何有效进行垃圾分类</div>
+		<div>回复：由 {{ article.user.username }} 发布的  {{ article.title }}</div>
 		<form method="post">
-			<textarea name="content" class="content"></textarea>
+			{% csrf_token %}
+            <textarea name="content" class="content"></textarea>
 			<input class="reply" type="submit" name="submit" value="" />
 			<div style="clear:both;"></div>
 		</form>

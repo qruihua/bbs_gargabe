@@ -42,7 +42,7 @@
 	</div>
 	<div id="main" class="auto">
 		<div class="wrap1">
-			<a class="btn reply" href="../static/reply.html"></a>
+			<a class="btn reply" href="{% url 'home:reply' %}?article_id={{ article.id }}"></a>
 			<div style="clear:both;"></div>
 		</div>
 		<div class="wrapContent">
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 			<div class="right">
-				
+
 				<div class="pubdate">
 					<span class="date">回复时间：2019-06-09 14:24:26</span>
 					<span class="floor">1楼&nbsp;|&nbsp;<a href="../static/quote.html">引用</a></span>
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 			<div class="right">
-				
+
 				<div class="pubdate">
 					<span class="date">回复时间：2019-06-10 14:24:26</span>
 					<span class="floor">1楼&nbsp;|&nbsp;<a href="#">引用</a></span>
@@ -127,7 +127,7 @@
 				<div class="pages">
 					<div id="pagination" class="page"></div>
 				</div>
-			<a class="btn reply" href="../static/reply.html"></a>
+			<a class="btn reply" href="reply.html"></a>
 			<div style="clear:both;"></div>
 		</div>
 	</div>

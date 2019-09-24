@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views import View
 
 # Create your views here.
-from home.models import CategoryModel, ArticleModel
+from home.models import CategoryModel, ArticleModel, CommentModel
 
 
 class IndexView(View):
@@ -114,3 +114,39 @@ class DetailView(View):
         }
 
         return render(request,'show.html',context=context)
+
+class ReplyView(View):
+
+    def get(self,request):
+
+        article_id=request.GET.get('article_id')
+
+        article=ArticleModel.objects.get(pk=article_id)
+
+        context = {
+            'article':article
+        }
+
+        return render(request,'reply.html',context=context)
+
+    def post(self, request):
+
+        article_id = request.GET.get('article_id')
+        content = request.POST.get('content')
+
+        user_id=request.session.get('id')
+        if user_id is None:
+            return redirect(reverse('users:login'))
+
+        try:
+            article = ArticleModel.objects.get(pk=article_id)
+        except ArticleModel.DoesNotExist:
+            return render(request, 'reply.html', context={'errmsg': '参数错误'})
+
+        CommentModel.objects.create(
+            content=content,
+            article=article,
+            user_id=user_id
+        )
+
+        return redirect(reverse('detail', kwargs={'id': article_id}))
