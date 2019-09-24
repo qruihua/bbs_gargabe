@@ -248,4 +248,4 @@ class QuoteView(View):
             parent=comment
         )
 
-        return redirect(reverse('home:detail',args=str(comment.article.id)))
+        return redirect(reverse('home:detail',args=('%s'%comment.article.id,)))
