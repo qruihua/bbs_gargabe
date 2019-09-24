@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 
@@ -67,3 +69,29 @@ class PublishView(View):
         }
         #模板数据渲染
         return render(request,'publish.html',context=context)
+
+    def post(self, request):
+
+        user_id = request.session.get('id')
+        if user_id is None:
+            return redirect(reverse('users:login'))
+
+        category_id = request.POST.get('category_id')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        if not all([category_id, title, content]):
+            return render(request, 'publish.html', context={'参数不全'})
+
+        try:
+            category = CategoryModel.objects.get(pk=category_id)
+        except CategoryModel.DoesNotExist:
+            return render(request, 'publish.html', context={'参数不正确'})
+
+        article = ArticleModel.objects.create(
+            title=title,
+            content=content,
+            category=category,
+            user_id=user_id
+        )
+        return redirect(reverse('home:list',kwargs={'category_id':category_id}))

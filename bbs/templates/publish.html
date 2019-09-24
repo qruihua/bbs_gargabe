@@ -35,7 +35,8 @@
 	</div>
 	<div id="publish">
 		<form action="" method="post">
-			<select name="module_id">
+            {% csrf_token %}
+			<select name="category_id">
                 {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
