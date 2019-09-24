@@ -39,3 +39,19 @@ class ArticleModel(models.Model):
         db_table='tb_article'
         verbose_name = '文章管理'
         verbose_name_plural = verbose_name
+
+class CommentModel(models.Model):
+
+    content=models.TextField()
+    article=models.ForeignKey(ArticleModel,on_delete=models.SET_NULL,null=True)
+    user=models.ForeignKey('users.User',on_delete=models.SET_NULL,null=True)
+    create_time=models.DateTimeField(auto_now_add=True)
+    parent=models.ForeignKey('self',on_delete=models.SET_NULL,null=True)
+
+    def __str__(self):
+        return self.article.title
+
+    class Meta:
+        db_table='tb_comment'
+        verbose_name = '评论管理'
+        verbose_name_plural = verbose_name
