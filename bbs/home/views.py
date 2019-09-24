@@ -36,5 +36,23 @@ class IndexView(View):
 class ListView(View):
 
     def get(self,request,category_id):
+        #获取当前分类
+        category = CategoryModel.objects.get(pk=category_id)
+        #获取当前分类的文章总数量
+        total_count = ArticleModel.objects.filter(category=category).count()
+        #获取今日发布文章数量
+        today = timezone.localdate()
+        today_count = ArticleModel.objects.filter(category=category,
+                                                  publish_time__gte=today).count()
+        #获取分类文章
+        articles = ArticleModel.objects.filter(category=category).order_by('-publish_time')
 
-        return render(request,'list.html')
+        context = {
+            'category':category,
+            'total_count':total_count,
+            'today_count':today_count,
+            'articles':articles,
+        }
+
+        return render(request,'list.html',context=context)
+
