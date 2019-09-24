@@ -5,6 +5,7 @@
 	<title>垃圾分类论坛_帖子列表页</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
+    {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/list.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.pagination.css' %}" />
@@ -62,12 +63,12 @@
 					<div class="subject">
 						<div class="titleWrap">&nbsp;&nbsp;<h2><a href="{% url 'home:detail' article.id %}">{{ article.title }}</a></h2></div>
 						<p>
-							楼主：{{ article.user }}&nbsp;{{ article.publish_time }}&nbsp;&nbsp;&nbsp;&nbsp;最后回复：2019-06-22
+							楼主：{{ article.user }}&nbsp;{{ article.publish_time }}&nbsp;&nbsp;&nbsp;&nbsp;最后回复：{{ article.last_comment_time }}
 						</p>
 					</div>
 					<div class="count">
 						<p>
-							回复<br /><span>41</span>
+							回复<br /><span>{{ article.comments }}</span>
 						</p>
 						<p>
 							浏览<br /><span>{{ article.read_count }}</span>
@@ -92,10 +93,9 @@
 				<ul class="listWrap">
 					<li>
 						<ul>
-							<li><h3><a href="#">干垃圾太难了</a></h3></li>
-							<li><h3><a href="#">干垃圾太难了</a></h3></li>
-							<li><h3><a href="#">干垃圾太难了</a></h3></li>
-							<li><h3><a href="#">干垃圾太难了</a></h3></li>
+                            {% for article in hot_articles %}
+                                <li><h3><a href="{% url 'home:detail' article.id %}">{{ article.title }}</a></h3></li>
+                            {% endfor %}
 						</ul>
 					</li>
 				</ul>
@@ -114,8 +114,8 @@
 <script type="text/javascript">
     $(function () {
         $('#pagination').pagination({
-            currentPage:5,
-            totalPage: 10,
+            currentPage: {{ page_num }},
+            totalPage: {{ total_page }},
             callback:function (current) {
                 location.href = '?page=' + current;
             }

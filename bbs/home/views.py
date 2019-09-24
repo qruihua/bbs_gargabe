@@ -39,22 +39,47 @@ class IndexView(View):
 class ListView(View):
 
     def get(self,request,category_id):
-        #获取当前分类
+
+        current_page = request.GET.get('page')
+        if current_page is None:
+            current_page = 1
+
         category = CategoryModel.objects.get(pk=category_id)
-        #获取当前分类的文章总数量
+
         total_count = ArticleModel.objects.filter(category=category).count()
-        #获取今日发布文章数量
+
         today = timezone.localdate()
         today_count = ArticleModel.objects.filter(category=category,
                                                   publish_time__gte=today).count()
-        #获取分类文章
+
         articles = ArticleModel.objects.filter(category=category).order_by('-publish_time')
 
+        for article in articles:
+            comments = CommentModel.objects.filter(article=article).order_by('-create_time')
+            cm = comments.first()
+            if cm is not None:
+                article.last_comment_time = cm.create_time
+            else:
+                article.last_comment_time = '暂无回复'
+
+            article.comments = len(comments)
+            article.save()
+
+        hot_articles = ArticleModel.objects.filter(category=category).order_by('-comments')[:3]
+
+        pagination = Paginator(articles, per_page=5)
+        current_articles = pagination.get_page(current_page)
+        page_num = current_page
+        total_page = pagination.num_pages
+
         context = {
-            'category':category,
-            'total_count':total_count,
-            'today_count':today_count,
-            'articles':articles,
+            'category': category,
+            'total_count': total_count,
+            'today_count': today_count,
+            'articles': current_articles,
+            'hot_articles': hot_articles,
+            'page_num': page_num,
+            'total_page': total_page,
         }
 
         return render(request,'list.html',context=context)
@@ -120,7 +145,7 @@ class DetailView(View):
             i+=1
             comment.floor=i
 
-        pagination = Paginator(comments, per_page=1)
+        pagination = Paginator(comments, per_page=5)
         current_comments = pagination.get_page(current_page)
         page_num = current_page
         total_page = pagination.num_pages
