@@ -95,3 +95,22 @@ class PublishView(View):
             user_id=user_id
         )
         return redirect(reverse('home:list',kwargs={'category_id':category_id}))
+
+
+class DetailView(View):
+
+    def get(self,request,id):
+
+        try:
+            article=ArticleModel.objects.get(pk=id)
+        except ArticleModel.DoesNotExist:
+            return render(request,'404.html')
+        else:
+            article.read_count+=1
+            article.save()
+
+        context = {
+            'article':article,
+        }
+
+        return render(request,'show.html',context=context)

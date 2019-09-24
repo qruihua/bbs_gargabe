@@ -8,11 +8,12 @@
 	<title>垃圾分类论坛_帖子详情页</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="css/public.css" />
-	<link rel="stylesheet" type="text/css" href="css/show.css" />
-	<link rel="stylesheet" type="text/css" href="css/jquery.pagination.css" />
-	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/jquery.pagination.min.js"></script>
+    {% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/show.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.pagination.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'js/jquery-1.12.4.min.js' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'js/jquery.pagination.min.js' %}" />
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -21,7 +22,7 @@
 		<div id="header" class="auto">
 			<div class="logo">垃圾分类</div>
 			<div class="nav">
-				<a class="hover" href="../templates/index.html">首页</a>
+				<a class="hover" href="index.html">首页</a>
 			</div>
 			<div class="serarch">
 				<form>
@@ -30,43 +31,44 @@
 				</form>
 			</div>
 			<div class="login">
-				<a href='../templates/login.html'>登录</a>&nbsp;
-				<a href='../templates/register.html'>注册</a>
+				<a href='login.html'>登录</a>&nbsp;
+				<a href='register.html'>注册</a>
 			</div>
 		</div>
 	</div>
 	<div style="margin-top:55px;"></div>
 	<div id="position" class="auto">
-		 <a href='../templates/index.html'>首页</a> &gt; <a href='../templates/list.html'>干垃圾</a> &gt;
+		 <a href='{% url 'home:index' %}'>首页</a> &gt; <a href='{% url 'home:list' article.category.id %}'>{{ article.category.name }}</a> &gt;
 	</div>
 	<div id="main" class="auto">
 		<div class="wrap1">
-			<a class="btn reply" href="./reply.html"></a>
+			<a class="btn reply" href="../static/reply.html"></a>
 			<div style="clear:both;"></div>
 		</div>
 		<div class="wrapContent">
 			<div class="left">
 				<div class="face">
 					<a target="_blank" href="">
-						<img src="image/2374101_middle.jpg" />
+						<img src="{% static 'image/2374101_middle.jpg' %}" />
 					</a>
 				</div>
 				<div class="name">
-					<a href="">ricky</a>
+					<a href="">{{ article.user.name }}</a>
 				</div>
 			</div>
 			<div class="right">
 				<div class="title">
-					<h2> 如何有效进行垃圾分类</h2>
-					<span>阅读：339&nbsp;|&nbsp;回复：15</span>
+					<h2> {{ article.title }}</h2>
+					<span>阅读：{{ article.read_count }}&nbsp;|&nbsp;回复：{{ article.comments }}</span>
 					<div style="clear:both;"></div>
 				</div>
 				<div class="pubdate">
-					<span class="date">发布于：2019-06-08 15:03 </span>
+					<span class="date">发布于：{{ article.publish_time }} </span>
 					<span class="floor" style="color:red;font-size:14px;font-weight:bold;">楼主</span>
 				</div>
 				<div class="content">
-					  如何有效进行垃圾分类呢?
+
+					  {{ article.content }}
 				</div>
 			</div>
 			<div style="clear:both;"></div>
@@ -75,7 +77,7 @@
 			<div class="left">
 				<div class="face">
 					<a target="_blank" href="">
-						<img src="image/2374102_middle.jpg" />
+						<img src="{% static 'image/2374102_middle.jpg' %}" />
 					</a>
 				</div>
 				<div class="name">
@@ -86,7 +88,7 @@
 				
 				<div class="pubdate">
 					<span class="date">回复时间：2019-06-09 14:24:26</span>
-					<span class="floor">1楼&nbsp;|&nbsp;<a href="./quote.html">引用</a></span>
+					<span class="floor">1楼&nbsp;|&nbsp;<a href="../static/quote.html">引用</a></span>
 				</div>
 				<div class="content">
 					抢到沙发了！！！
@@ -98,7 +100,7 @@
 			<div class="left">
 				<div class="face">
 					<a target="_blank" data-uid="2374101" href="">
-						<img src="image/2374103_middle.jpg" />
+						<img src="{% static 'image/2374103_middle.jpg' %}" />
 					</a>
 				</div>
 				<div class="name">
@@ -113,7 +115,7 @@
 				</div>
 				<div class="content">
 					<div class="quote">
-					<h2>引用 1楼 ricky 发表的: </h2>
+					<h2>引用 ricky 发表的: </h2>
 					如何有效进行垃圾分类呢?
 					</div>
 					板凳是我的！！
@@ -125,7 +127,7 @@
 				<div class="pages">
 					<div id="pagination" class="page"></div>
 				</div>
-			<a class="btn reply" href="./reply.html"></a>
+			<a class="btn reply" href="../static/reply.html"></a>
 			<div style="clear:both;"></div>
 		</div>
 	</div>
