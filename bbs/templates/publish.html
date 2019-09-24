@@ -5,8 +5,8 @@
 	<title>垃圾分类论坛_发帖页</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="css/public.css" />
-	<link rel="stylesheet" type="text/css" href="css/publish.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/public.css" />
+	<link rel="stylesheet" type="text/css" href="../static/css/publish.css" />
 	<style type="text/css"></style>
 	<script type="text/javascript"></script>
 </head>
@@ -15,7 +15,7 @@
 		<div id="header" class="auto">
 			<div class="logo">垃圾分类</div>
 			<div class="nav">
-				<a class="hover" href="../templates/index.html">首页</a>
+				<a class="hover" href="index.html">首页</a>
 			</div>
 			<div class="serarch">
 				<form>
@@ -24,19 +24,21 @@
 				</form>
 			</div>
 			<div class="login">
-				<a href='../templates/login.html'>登录</a>&nbsp;
-				<a href='../templates/register.html'>注册</a>
+				<a href='login.html'>登录</a>&nbsp;
+				<a href='register.html'>注册</a>
 			</div>
 		</div>
 	</div>
 	<div style="margin-top:55px;"></div>
 	<div id="position" class="auto">
-		 <a href='../templates/index.html'>首页</a> &gt; <a href='../templates/list.html'>干垃圾</a>
+		 <a href='index.html'>首页</a> &gt; <a href='list.html'>干垃圾</a>
 	</div>
 	<div id="publish">
 		<form action="" method="post">
 			<select name="module_id">
-				<option>请选择一个版块</option>
+                {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
 			</select>
 			<input class="title" placeholder="请输入标题" name="title" type="text" />
 			<textarea name="content" class="content"></textarea>

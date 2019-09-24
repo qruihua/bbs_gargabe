@@ -56,3 +56,14 @@ class ListView(View):
 
         return render(request,'list.html',context=context)
 
+class PublishView(View):
+
+    def get(self,request):
+        #查询分类信息
+        categories=CategoryModel.objects.all()
+        #组织上下文
+        context={
+            'categories':categories
+        }
+        #模板数据渲染
+        return render(request,'publish.html',context=context)
