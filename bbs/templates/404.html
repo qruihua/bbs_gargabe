@@ -6,8 +6,8 @@
 	<title>垃圾分类论坛_404</title>
 	<meta name="keywords" content="关键字列表" />
 	<meta name="description" content="网页描述" />
-	<link rel="stylesheet" type="text/css" href="../static/css/public.css" />
-	<link rel="stylesheet" type="text/css" href="../static/css/show.css" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/public.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/show.css' %}" />
 	<style>
 
 		.missing_pic{
@@ -55,14 +55,14 @@
 
                 <div class="login">
                    <a href='{% url 'users:login' %}'>登录</a>&nbsp;
-				<a href='{% url 'users:register' %}'>注册</a>
+				    <a href='{% url 'users:register' %}'>注册</a>
                 </div>
 		</div>
 	</div>
 	<div style="margin-top:55px;"></div>
-    <img src="../static/image/missing.png" alt="404" class="missing_pic">
+    <img src="{% static 'image/missing.png' %}" alt="404" class="missing_pic">
 	<h3 class="tip">Oops!你访问的页面未找到</h3>
-	<a href="index.html" class="back_to_index">返回首页</a>
+	<a href="{% url 'home:index' %}" class="back_to_index">返回首页</a>
 	<div id="footer" class="auto">
 		<div class="bottom">
 			<a>垃圾分类</a>

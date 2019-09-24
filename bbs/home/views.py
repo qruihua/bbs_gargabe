@@ -93,7 +93,7 @@ class PublishView(View):
         try:
             category = CategoryModel.objects.get(pk=category_id)
         except CategoryModel.DoesNotExist:
-            return render(request, 'publish.html', context={'参数不正确'})
+            return render(request, '404.html')
 
         #查询分类信息
         categories=CategoryModel.objects.all()
@@ -118,12 +118,12 @@ class PublishView(View):
         content = request.POST.get('content')
 
         if not all([category_id, title, content]):
-            return render(request, 'publish.html', context={'参数不全'})
+            return render(request, '404.html')
 
         try:
             category = CategoryModel.objects.get(pk=category_id)
         except CategoryModel.DoesNotExist:
-            return render(request, 'publish.html', context={'参数不正确'})
+            return render(request, '404.html')
 
         article = ArticleModel.objects.create(
             title=title,
@@ -199,7 +199,7 @@ class ReplyView(View):
         try:
             article = ArticleModel.objects.get(pk=article_id)
         except ArticleModel.DoesNotExist:
-            return render(request, 'reply.html', context={'errmsg': '参数错误'})
+            return render(request, '404.html')
 
         CommentModel.objects.create(
             content=content,
