@@ -22,7 +22,7 @@
 		<div id="header" class="auto">
 			<div class="logo">垃圾分类</div>
 			<div class="nav">
-				<a class="hover" href="index.html">首页</a>
+				<a class="hover" href="{% url 'home:index' %}">首页</a>
 			</div>
 			<div class="serarch">
 				<form>
@@ -108,7 +108,7 @@
 				<div class="pages">
 					<div id="pagination" class="page"></div>
 				</div>
-			<a class="btn reply" href="reply.html"></a>
+			<a class="btn reply" href="{% url 'home:reply' %}?article_id={{ article.id }}"></a>
 			<div style="clear:both;"></div>
 		</div>
 	</div>

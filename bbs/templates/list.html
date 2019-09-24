@@ -35,7 +35,7 @@
 	</div>
 	<div style="margin-top:55px;"></div>
 	<div id="position" class="auto">
-		 <a href='index.html'>首页</a> &gt; <a href='{% url 'home:list' category.id %}l'>{{ category.name }}</a>
+		 <a href='index.html'>首页</a> &gt; <a href='{% url 'home:list' category.id %}'>{{ category.name }}</a>
 	</div>
 	<div id="main" class="auto">
 		<div id="left">
@@ -46,7 +46,7 @@
 				    总帖：<span>{{ total_count }}</span>
 				</div>
 				<div class="pages_wrap">
-					<a class="btn publish" href="{% url 'home:publish' %}"></a>
+					<a class="btn publish" href="{% url 'home:publish' %}?category_id={{ category.id }}"></a>
 					<div style="clear:both;"></div>
 				</div>
 			</div>

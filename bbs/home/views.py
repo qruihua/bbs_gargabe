@@ -87,10 +87,17 @@ class ListView(View):
 class PublishView(View):
 
     def get(self,request):
+        category_id = request.GET.get('category_id')
+        try:
+            category = CategoryModel.objects.get(pk=category_id)
+        except CategoryModel.DoesNotExist:
+            return render(request, 'publish.html', context={'参数不正确'})
+
         #查询分类信息
         categories=CategoryModel.objects.all()
         #组织上下文
         context={
+            'category':category,
             'categories':categories
         }
         #模板数据渲染
@@ -193,4 +200,4 @@ class ReplyView(View):
             user_id=user_id
         )
 
-        return redirect(reverse('detail', kwargs={'id': article_id}))
+        return redirect(reverse('home:detail', kwargs={'id': article_id}))
